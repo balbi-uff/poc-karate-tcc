@@ -111,21 +111,20 @@ Feature: API Tests
 
   # /pet/{petId}/uploadImage POST 200
   Scenario: Upload image for pet
-    Given path '/pet/123/uploadImage'
-    And multipart file image = { read: 'path/to/image.jpg', filename: 'image.jpg', contentType: 'image/jpeg' }
+    Given path '/pet/1/uploadImage'
+    And request read('..\\..\\resources\\cat.jpg')    
     When method post
     Then status 200
 
   # /pet/{petId}/uploadImage POST 400
   Scenario: Invalid image upload for pet
     Given path '/pet/123/uploadImage'
-    And multipart file image = { read: 'path/to/invalid.txt', filename: 'invalid.txt', contentType: 'text/plain' }
     When method post
     Then status 400
 
   # /pet/{petId}/uploadImage POST 404
   Scenario: Upload image for non-existent pet
     Given path '/pet/999999/uploadImage'
-    And multipart file image = { read: 'path/to/image.jpg', filename: 'image.jpg', contentType: 'image/jpeg' }
+    And request read('..\\..\\resources\\cat.jpg')    
     When method post
     Then status 404
